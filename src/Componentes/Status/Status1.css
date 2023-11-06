@@ -1,0 +1,49 @@
+@media(max-width:425px){
+  .bolinhas {
+    text-align: center;
+    align-items: baseline !important;
+    justify-content: space-evenly;
+  }
+}
+
+@media(max-width:768px){
+  .bo p:nth-child(1){
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .bo {
+    font-size: medium;
+  }
+  
+}
+
+.bolinhas {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-block: 5rem;
+}
+
+.imgBike  {
+  position:absolute;
+}
+
+.bo {
+  width: 10rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bo p:nth-child(1){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  background-color: silver;
+  width: 3.5rem;
+  height: 3.5rem;
+  z-index: 1;
+}
+
