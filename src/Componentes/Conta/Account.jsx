@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 
 function Account() {
   const navigate = useNavigate();
-  const [cliente, setCliente] = useState({
-    "nome": "",
-    "cpfcnpj": "",
-    "email": "",
-    "nasc": "",
-    "cep": ""
-  })
+  // const [cliente, setCliente] = useState({
+  //   "nome": "",
+  //   "cpfcnpj": "",
+  //   "email": "",
+  //   "nasc": "",
+  //   "cep": ""
+  // })
 
-  const handleChange = (e) => {
-    setNovo({ ...cliente, [e.target.name]: e.target.value })
-  }
+  // const handleChange = (e) => {
+  //   setNovo({ ...cliente, [e.target.name]: e.target.value })
+  // }
 
   const logout = () => {
     localStorage.setItem("logado", false);

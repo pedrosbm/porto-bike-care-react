@@ -14,45 +14,56 @@ const schema = yup.object({
 function Login() {
   const { register, handleSubmit, formState: { errors }, } = useForm({ resolver: yupResolver(schema) });
   const navigate = useNavigate();
+
   const [cliente, setCliente] = useState({
     "email": "",
     "pwd": ""
   });
-  // const [pwdError, setPwdError] = useState(false)
-  // const [emailError, setEmailError] = useState(false)
 
-  const logar = e => {
-    console.log(e)
+  const [error, setError] = useState(false)
+
+  const logar = () => {
+
     fetch('http://localhost:5000/Login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(novo),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cliente),
+    })
+      .then(response => {
+        if (response.status == 500) {
+          throw new Error('Erro no servidor');
+        } else {
+          return response.json();
+        }
       })
-        .then(response => {
-          if(response.ok){
-            return response.json();
-          } else {
-            console.error('Erro na requisição:', response.status, response.statusText);
-            throw new Error('Erro na requisição.');
-          }
-        })
-        .then(data => {
-          if(data == null)
-          localStorage.setItem("logado", true)
-          localStorage.setItem("id", data["id"])
-          localStorage.setItem("nome", data["nome"])
-          localStorage.setItem("email", data["email"])
-          localStorage.setItem("cpf/cnpj", data["cpfcnpj"])
-          localStorage.setItem("cep", data["cep"])
-          localStorage.setItem("nasc", data["nasc"])
-          navigate("/")
-        })
-        .catch(error => {
-          console.error('Erro ao cadastrar cliente:', error);
-        });
+      .then(data => {
+        console.log(data)
+        if(data["id"] == 0){
+          setError(true)
+        } else {
+          localStorage.setItem("logado", true);
+          localStorage.setItem("id", data["id"]);
+          localStorage.setItem("nome", data["nome"]);
+          localStorage.setItem("email", data["email"]);
+          localStorage.setItem("cpf/cnpj", data["cpfcnpj"]);
+          localStorage.setItem("cep", data["cep"]);
+          localStorage.setItem("nasc", data["nasc"]);
+          navigate("/");
+        }
+      }
+      )
+      .catch(error => {
+        console.error('Erro ao cadastrar cliente:', error);
+      });
   }
+
+  useEffect(() => {
+    if (error == true) {
+      document.getElementById('Error').innerText ="Email ou senha incorretos";
+    }
+  })
 
   return (
     <>
@@ -79,9 +90,9 @@ function Login() {
               <input type="password"{...register("senha")} value={cliente.pwd}
                 onChange={(e) => setCliente({ ...cliente, pwd: e.target.value })}
               />
+            <span id="Error"></span>
             </div>
 
-            <span id="notFound"></span>
 
             <button type="submit" className="Button">Confirmar</button>
 
