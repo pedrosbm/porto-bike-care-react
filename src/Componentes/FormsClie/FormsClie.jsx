@@ -67,7 +67,7 @@ function FormsClie() {
           console.error('Erro ao cadastrar cliente:', error);
         });
     } else if(e["tipo"] == "PJ"){
-      fetch('http://localhost:5000/Cliente/CadastroPf', {
+      fetch('http://localhost:5000/Cliente/CadastroPj', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

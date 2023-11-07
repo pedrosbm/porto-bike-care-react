@@ -15,7 +15,7 @@ function Login() {
   const { register, handleSubmit, formState: { errors }, } = useForm({ resolver: yupResolver(schema) });
   const navigate = useNavigate();
   const [cliente, setCliente] = useState({
-    "nome": "",
+    "email": "",
     "pwd": ""
   });
   // const [pwdError, setPwdError] = useState(false)
@@ -23,16 +23,35 @@ function Login() {
 
   const logar = e => {
     console.log(e)
-    // fetch(url)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     // Processar a resposta
-    //     console.log(data);
-    //   })
-    //   .catch(error => {
-    //     // Lidar com erros
-    //     console.error(error);
-    //   });
+    fetch('http://localhost:5000/Login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novo),
+      })
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          } else {
+            console.error('Erro na requisição:', response.status, response.statusText);
+            throw new Error('Erro na requisição.');
+          }
+        })
+        .then(data => {
+          if(data == null)
+          localStorage.setItem("logado", true)
+          localStorage.setItem("id", data["id"])
+          localStorage.setItem("nome", data["nome"])
+          localStorage.setItem("email", data["email"])
+          localStorage.setItem("cpf/cnpj", data["cpfcnpj"])
+          localStorage.setItem("cep", data["cep"])
+          localStorage.setItem("nasc", data["nasc"])
+          navigate("/")
+        })
+        .catch(error => {
+          console.error('Erro ao cadastrar cliente:', error);
+        });
   }
 
   return (
