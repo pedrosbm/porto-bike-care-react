@@ -39,7 +39,6 @@ function Login() {
         }
       })
       .then(data => {
-        console.log(data)
         if(data["id"] == 0){
           setError(true)
         } else {
