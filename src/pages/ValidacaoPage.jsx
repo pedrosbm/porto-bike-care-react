@@ -5,7 +5,7 @@ import NavBarS from '../Componentes/NavBarS/NavBarS';
 
 
 
-function Validacao() {
+function ValidacaoPage() {
 
     return (
       <div className="Cadastro">
@@ -17,4 +17,4 @@ function Validacao() {
     );
   }
   
-  export default Validacao;
+  export default ValidacaoPage;

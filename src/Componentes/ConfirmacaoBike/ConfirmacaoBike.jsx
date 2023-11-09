@@ -1,50 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function ConfirmacaoBike({ data, onConfirm, onCancel }) {
+function ConfirmacaoBike() {
+  const navigate = useNavigate();
+
+  const [bike, setBike] = useState({
+    nick: localStorage.getItem("nick"),
+    tipoQuadro: localStorage.getItem("tipoQuadro"),
+    quantMarcha: localStorage.getItem("quantMarcha"),
+    tipoSuspensao: localStorage.getItem("tipoSuspensao"),
+    tipoFreio: localStorage.getItem("tipoFreio"),
+    modalidade: localStorage.getItem("modalidade"),
+    marca: localStorage.getItem("marca"),
+    modelo: localStorage.getItem("modelo"),
+    valor: localStorage.getItem("valor"),
+    numSerie: localStorage.getItem("numSerie"),
+    tipoPneu: localStorage.getItem("tipoPneu"),
+    observações: localStorage.getItem("observações"),
+    nf: parseInt(localStorage.getItem("nf")),
+    clienteId: localStorage.getItem("id"),
+  });
+
+  const onConfirm = () => {
+    fetch('http://localhost:5000/Bike/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bike),
+    })
+    .then(response => {
+        if (response.ok) {
+          navigate("/Etapa3")
+        } else {
+          console.error('Erro na requisição:', response.status, response.statusText);
+          throw new Error('Erro na requisição.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao cadastrar cliente:', error);
+    });
+  }
+
+  const onCancel = () => {
+    navigate("/Etapa1")
+  }
   return (
     <div>
       <h2>Confirme os Dados:</h2>
       <p>
-        <strong>Número de Série:</strong> {data.num_serie}
+        <strong>Número de Série:</strong> {localStorage.getItem("numSerie")}
       </p>
       <p>
-        <strong>Tipo de Quadro:</strong> {data.tipoQuadro}
+        <strong>Tipo de Quadro:</strong> {localStorage.getItem("tipoQuadro")}
       </p>
       <p>
-        <strong>Apelido:</strong> {data.nick}
+        <strong>Apelido:</strong> {localStorage.getItem("nick")}
       </p>
       <p>
-        <strong>Quantidade de Marchas:</strong> {data.quantmarcha}
+        <strong>Quantidade de Marchas:</strong> {localStorage.getItem("quantmMrcha")}
       </p>
       <p>
-        <strong>Modalidade:</strong> {data.modalidade}
+        <strong>Modalidade:</strong> {localStorage.getItem("modalidade")}
       </p>
       <p>
-        <strong>Marca:</strong> {data.marca}
+        <strong>Marca:</strong> {localStorage.getItem("marca")}
       </p>
       <p>
-        <strong>Valor:</strong> {data.valor}
+        <strong>Valor:</strong> {localStorage.getItem("valor")}
       </p>
       <p>
-        <strong>Tipo de Suspensão:</strong> {data.tipoSuspensao}
+        <strong>Tipo de Suspensão:</strong> {localStorage.getItem("tipoSuspensao")}
       </p>
       <p>
-        <strong>Acessório:</strong> {data.acess}
+        <strong>Freio:</strong> {localStorage.getItem("tipoFreio")}
       </p>
       <p>
-        <strong>Freio:</strong> {data.tipoFreio}
+        <strong>Modelo:</strong> {localStorage.getItem("modelo")}
       </p>
       <p>
-        <strong>Modelo:</strong> {data.modelo}
+        <strong>Tipo de Pneu:</strong> {localStorage.getItem("tipoPneu")}
       </p>
       <p>
-        <strong>Tipo de Pneu:</strong> {data.tipoPneu}
+        <strong>Observações:</strong> {localStorage.getItem("observacoes")}
       </p>
       <p>
-        <strong>Observações:</strong> {data.obs}
-      </p>
-      <p>
-        <strong>Nota Fiscal:</strong> {data.file}
+        <strong>Nota Fiscal:</strong> {localStorage.getItem("nf")}
       </p>
 
       <button onClick={onConfirm}>Confirmar</button>

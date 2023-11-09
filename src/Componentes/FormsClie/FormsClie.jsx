@@ -84,6 +84,7 @@ function FormsClie() {
         })
         .then(data => {
           localStorage.setItem("logado", true)
+          alert("Cadastrado com sucesso!")
           localStorage.setItem("id", data["id"])
           localStorage.setItem("nome", data["nome"])
           localStorage.setItem("email", data["email"])
@@ -208,11 +209,3 @@ function FormsClie() {
   )
 }
 export default FormsClie;
-
-// export default function(){
-//   return(
-//     <>
-//       <p>a</p>
-//     </>
-//   )
-// }
