@@ -30,7 +30,7 @@ function NavBarS() {
                 </div>
 
                 <div>
-                    <Link className='login' to='/Login'>
+                    <Link className='login' to='/Conta'>
                         <img src={userIcon} alt="bonequinho " className='bonequinho' />
                         <p className="entrar"> {localStorage.getItem("logado") == "true" ? "Conta" : "Entrar"}</p>
                     </Link>
