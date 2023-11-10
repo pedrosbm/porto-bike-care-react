@@ -8,6 +8,8 @@ import NovoCliente from './pages/CadastroClie'
 import Login from './pages/LoginPage'
 import Etapa1 from './pages/CadastroBike'
 import Etapa2 from './pages/ConfirmacaoBike'
+import Etapa3 from './pages/ValidacaoPage'
+import Etapa4 from './pages/Pagamento'
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
         <Route path='/Login' element={<Login/>} />
         <Route path='/Etapa1' element={<Etapa1/>} />
         <Route path='/Etapa2' element={<Etapa2/>}/>
+        <Route path='/Etapa3' element={<Etapa3/>}/>
+        <Route path='/Etapa4' element={<Etapa4/>}/>
       </Routes>
     </Router>
   );

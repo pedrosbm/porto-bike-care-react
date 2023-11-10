@@ -65,6 +65,7 @@ function FormsClie() {
         })
         .catch(error => {
           console.error('Erro ao cadastrar cliente:', error);
+
         });
     } else if(e["tipo"] == "PJ"){
       fetch('http://localhost:5000/Cliente/CadastroPj', {
@@ -84,7 +85,6 @@ function FormsClie() {
         })
         .then(data => {
           localStorage.setItem("logado", true)
-          alert("Cadastrado com sucesso!")
           localStorage.setItem("id", data["id"])
           localStorage.setItem("nome", data["nome"])
           localStorage.setItem("email", data["email"])
