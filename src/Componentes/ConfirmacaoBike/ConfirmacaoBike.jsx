@@ -16,7 +16,7 @@ function ConfirmacaoBike() {
     valor: parseInt(localStorage.getItem("valor")),
     numSerie: localStorage.getItem("numSerie"),
     tipoPneu: localStorage.getItem("tipoPneu"),
-    observações: localStorage.getItem("observações"),
+    observações: localStorage.getItem("observacoes"),
     nf: parseInt(localStorage.getItem("nf")),
     clienteId: parseInt(localStorage.getItem("id")),
   });
@@ -29,17 +29,33 @@ function ConfirmacaoBike() {
       },
       body: JSON.stringify(bike),
     })
-    .then(response => {
+      .then(response => {
         if (response.ok) {
-          navigate("/Etapa3")
+          localStorage.setItem("nick", "")
+          localStorage.setItem("tipoQuadro", "")
+          localStorage.setItem("quantMarcha", "")
+          localStorage.setItem("tipoSuspensao", "")
+          localStorage.setItem("tipoFreio", "")
+          localStorage.setItem("modalidade", "")
+          localStorage.setItem("marca", "")
+          localStorage.setItem("modelo", "")
+          localStorage.setItem("valor", "")
+          localStorage.setItem("numSerie", "")
+          localStorage.setItem("tipoPneu", "")
+          localStorage.setItem("observacoes", "")
+          localStorage.setItem("nf", "")
+          // navigate("/Etapa3")
+          return response.json()
         } else {
           console.error('Erro na requisição:', response.status, response.statusText);
           throw new Error('Erro na requisição.');
         }
-    })
-    .catch(error => {
-        console.error('Erro ao cadastrar cliente:', error);
-    });
+      }).then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.error('Erro ao cadastrar bike:', error);
+      });
   }
 
   const onCancel = () => {
