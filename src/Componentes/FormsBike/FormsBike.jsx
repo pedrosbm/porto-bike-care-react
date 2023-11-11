@@ -94,13 +94,13 @@ function FormsBike() {
                             <label htmlFor="quadro">Tipo de Quadro:</label>
                             <span>{errors.tipoQuadro?.message}</span>
                         </div>
-                        <input value={novaBike["tipoQuadro"]} type="text" list="quadro" name="quadro"{...register("tipoQuadro")} onChange={handleChange} />
-                        <datalist id="quadro">
+                        <select className='selects' value={novaBike["tipoQuadro"]} type="text" list="quadro" name="quadro"{...register("tipoQuadro")} onChange={handleChange}>
+                            <option defaultChecked>Selecionar quadro</option>
                             <option value="aço">Aço cromo-molibdênio</option>
                             <option value="fibra">Fibra de carbono</option>
                             <option value="aluminio">Alumínio</option>
                             <option value="titanio">Titânio</option>
-                        </datalist>
+                        </select>
                     </div>
 
                     <div className="inputBox">
@@ -108,14 +108,14 @@ function FormsBike() {
                             <label htmlFor="quantmarcha">Quantidade de Marchas: </label>
                             <span>{errors.quantMarcha?.message}</span>
                         </div>
-                        <input value={novaBike["quantMarcha"]} type="number" list="quantmarcha" name="quantmarcha"{...register("quantMarcha")} onChange={handleChange} />
-                        <datalist id="quantmarcha">
+                        <select className='selects' value={novaBike["quantMarcha"]} type="number" name="quantmarcha"{...register("quantMarcha")} onChange={handleChange} >
+                            <option defaultChecked>Selecionar Quantidade</option>
                             <option value="18">18 marchas</option>
                             <option value="21">21 marchas</option>
                             <option value="24">24 marchas </option>
                             <option value="27">27 marchas</option>
                             <option value="30">30 marchas</option>
-                        </datalist>
+                        </select>
                     </div>
 
                     <div className="inputBox">
@@ -123,7 +123,13 @@ function FormsBike() {
                             <label htmlFor="modalidade">Modalidade: </label>
                             <span>{errors.modalidade?.message}</span>
                         </div>
-                        <input value={novaBike["modalidade"]} type="text" name='modalidade' {...register("modalidade")} minLength={1} placeholder='Speed' onChange={handleChange} />
+                        <select className='selects' value={novaBike["modalidade"]} type="text" name='modalidade' {...register("modalidade")} minLength={1} placeholder='Speed' onChange={handleChange}>
+                            <option defaultChecked>selecionar modalidade</option>
+                            <option value="Speed">Speed</option>
+                            <option value="Downhill">Downhill</option>
+                            <option value="Gravel"> Gravel </option>
+                            <option value="Bicicross">Bicicross</option>
+                        </select>
                     </div>
 
                     <div className="inputBox">
@@ -155,14 +161,14 @@ function FormsBike() {
                             <label htmlFor="freio">Freio:</label>
                             <span>{errors.tipoFreio?.message}</span>
                         </div>
-                        <input value={novaBike["tipoFreio"]} type="text" list="freio" name="freio" {...register("tipoFreio")} onChange={handleChange} />
-                        <datalist id="freio">
+                        <select className='selects' value={novaBike["tipoFreio"]} type="text" name="freio" {...register("tipoFreio")} onChange={handleChange}>
+                            <option defaultChecked>Selecionar freio</option>
                             <option value="Cantilevers">Cantilevers</option>
                             <option value="Ferradura">Ferradura</option>
                             <option value="V-brake">V-brake</option>
                             <option value="Disco Mecânico">Disco Mecânico</option>
                             <option value="Disco Hidráulico">Disco Hidráulico</option>
-                        </datalist>
+                        </select>
                     </div>
 
                     <div className="inputBox">

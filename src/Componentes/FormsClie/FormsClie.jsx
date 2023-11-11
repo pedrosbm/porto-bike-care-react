@@ -16,7 +16,7 @@ const schema = yup.object({
 });
 
 function FormsClie() {
-  
+
   const [novo, setNovo] = useState({
     "tipo": "",
     "nome": "",
@@ -26,17 +26,17 @@ function FormsClie() {
     "nasc": "",
     "senha": ""
   })
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  
+
   const navigate = useNavigate();
 
   const cadastrar = e => {
-    if(e["tipo"] == "PF"){
+    if (e["tipo"] == "PF") {
       console.log("aqui")
       fetch('http://localhost:5000/Cliente/CadastroPf', {
         method: 'POST',
@@ -46,7 +46,7 @@ function FormsClie() {
         body: JSON.stringify(novo),
       })
         .then(response => {
-          if(response.ok){
+          if (response.ok) {
             return response.json();
           } else {
             console.error('Erro na requisição:', response.status, response.statusText);
@@ -67,7 +67,7 @@ function FormsClie() {
           console.error('Erro ao cadastrar cliente:', error);
 
         });
-    } else if(e["tipo"] == "PJ"){
+    } else if (e["tipo"] == "PJ") {
       fetch('http://localhost:5000/Cliente/CadastroPj', {
         method: 'POST',
         headers: {
@@ -76,7 +76,7 @@ function FormsClie() {
         body: JSON.stringify(novo),
       })
         .then(response => {
-          if(response.ok){
+          if (response.ok) {
             return response.json();
           } else {
             console.error('Erro na requisição:', response.status, response.statusText);
@@ -141,11 +141,11 @@ function FormsClie() {
               <div className="type">
 
                 <div>
-                  <input placeholder="PF/PJ" required type="text"{...register("tipo")} list="tipo" name="tipo" value={novo.tipo} onChange={handleChange} />
-                  <datalist id="tipo">
+                  <select className="cpjcnpj" placeholder="PF/PJ" required type="text"{...register("tipo")} list="tipo" name="tipo" value={novo.tipo} onChange={handleChange} >
+                    <option defaultChecked>Vazio</option>
                     <option value="PF">CPF</option>
                     <option value="PJ">CPNJ</option>
-                  </datalist>
+                  </select>
                 </div>
 
                 <div>
@@ -204,7 +204,7 @@ function FormsClie() {
 
           </fieldset>
         </form>
-      </div>
+      </div >
     </>
   )
 }

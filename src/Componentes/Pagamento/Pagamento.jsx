@@ -7,10 +7,22 @@ function Pagamento() {
     const [apolice, setApolice] = useState({
         titular: localStorage.getItem("nome"),
         infoBike: localStorage.getItem("observacoes"),
-        valorAssegurado: localStorage.getItem("valor"),
-        dataInicio: new Date(),
-        clienteId: localStorage.getItem("id")
+        valorAssegurado: parseFloat(localStorage.getItem("valor")),
+        clienteId: parseInt(localStorage.getItem("id"))
     });
+
+    const [pagamento, setPagamento] = useState({
+        quantParcelas: "",
+        valor: "",
+        clienteId: parseInt(localStorage.getItem("id")),
+    })
+
+    const [plano, setPlano] = useState({
+        nomePlano: "",
+        valor: "",
+        cobertura: [],
+        apoliceId: ""
+    })
 
     const [cartao, setCartao] = useState({
         numCartao: "",
@@ -18,23 +30,13 @@ function Pagamento() {
         dataVal: "",
         cvv: "",
         modalidade: "",
+        clienteId: parseInt(localStorage.getItem("id")),
+        pagamentoId: ""
     })
 
-    const [plano, setPlano] = useState({
-        nomePlano: "",
-        valor: "",
-        cobertura: [],
-    })
-
-    const [pagamento, setPagamento] = useState({
-        quantParcelas: "",
-        valor: "",
-        clienteId: localStorage.getItem("id")
-    })
-
-    useEffect(() =>{
-        setPagamento({ ...pagamento, valor: plano.valor / pagamento.quantParcelas })     
-    },[plano.valor])
+    useEffect(() => {
+        setPagamento({ ...pagamento, valor: plano.valor / pagamento.quantParcelas })
+    }, [plano.valor])
 
     useEffect(() => {
         if (plano.nomePlano === "Pedal Essencial") {
@@ -93,22 +95,124 @@ function Pagamento() {
     const handlePagamentoChange = (e) => {
         const quantParcelas = e.target.value;
         const novoValor = plano.valor / quantParcelas;
-      
-        setPagamento({ ...pagamento, quantParcelas, valor: novoValor });
-      }
-      
+
+        setPagamento({ ...pagamento, quantParcelas: parseInt(quantParcelas), valor: parseFloat(novoValor) });
+    }
+
 
     const handleCartaoChange = (e) => {
-        setCartao({ ...cartao, [e.target.name]: e.target.value })
+        if (e.target.name == "cvv") {
+            setCartao({ ...cartao, cvv: parseInt(e.target.value) })
+        } else if (e.target.name == "numCartao") {
+            setCartao({ ...cartao, numCartao: parseInt(e.target.value) })
+        } else
+            setCartao({ ...cartao, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        console.log("Apolice - ", apolice)
-        console.log("Cartão - ", cartao)
-        console.log("Plano - ", plano)
-        console.log("Pagamento - ", pagamento)
-    }
+    //Sequência de post's
+    const novoApolice = async (apolice) => {
+        try {
+            const response = await fetch('http://localhost:5000/Apolice/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(apolice),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                setPlano({ ...plano, apoliceId: data["apoliceId"] })
+            } else {
+                console.error('Erro na requisição:', response.status, response.statusText);
+                throw new Error('Erro na requisição.');
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar bike:', error);
+        }
+    };
+
+    const novoPagamento = async (pagamento) => {
+        try {
+            const response = await fetch('http://localhost:5000/Pagamento/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pagamento),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                setCartao({ ...cartao, pagamentoId: data["pagametoId"] })
+            } else {
+                console.error('Erro na requisição:', response.status, response.statusText);
+                throw new Error('Erro na requisição.');
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar bike:', error);
+        }
+    };
+
+    const novoPlano = async (plano) => {
+        try {
+            const response = await fetch('http://localhost:5000/Plano/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(plano),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+            } else {
+                console.error('Erro na requisição:', response.status, response.statusText);
+                throw new Error('Erro na requisição.');
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar bike:', error);
+        }
+    };
+
+    const novoCartao = async (cartao) => {
+        try {
+            const response = await fetch('http://localhost:5000/Cartão/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cartao),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+            } else {
+                console.error('Erro na requisição:', response.status, response.statusText);
+                throw new Error('Erro na requisição.');
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar bike:', error);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await novoApolice(apolice);
+            await novoPagamento(pagamento);
+            await novoPlano(plano);
+            await novoCartao(cartao);
+        } catch (error) {
+            console.error('Erro geral:', error);
+        }
+    };
+
 
     return (
         <>

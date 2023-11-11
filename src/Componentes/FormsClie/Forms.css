@@ -12,7 +12,7 @@
         left: 20px;
     }
 
-    .inputBox input {
+    .inputBox input, .selects {
         width: 18rem !important;
     }
 
@@ -89,7 +89,7 @@ fieldset    {
     color: rgb(222, 59, 59);
 }
 
-.inputBox input {
+.inputBox input, .selects {
     transition: 0.2s;
     border: none;
     background-color: #EDEDED;
@@ -127,7 +127,7 @@ fieldset    {
     display: flex;
 }
 
-.type div:nth-child(1) input{
+.type div:nth-child(1) input, .cpjcnpj{
     padding-inline: 5px;
     transition: 0.2s;
     border: none;
