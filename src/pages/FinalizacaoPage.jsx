@@ -2,7 +2,7 @@ import NavBarS from "../Componentes/NavBarS/NavBarS"
 import Rodape from "../Componentes/Rodape/Rodape";
 import Finalizacao from "../Componentes/Finalizacao/Finalizacao";
 
-function Finalizacao () {
+function FinalizacaoPage () {
     return (
         <>
         <NavBarS/>
@@ -11,4 +11,4 @@ function Finalizacao () {
         </>
     )
 }
-export default Finalizacao;
+export default FinalizacaoPage;

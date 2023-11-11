@@ -22,47 +22,49 @@ function ConfirmacaoBike() {
   });
 
   const onConfirm = () => {
-    fetch('http://localhost:5000/Bike/new', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bike),
-    })
-      .then(response => {
-        if (response.ok) {
-          localStorage.setItem("nick", "")
-          localStorage.setItem("tipoQuadro", "")
-          localStorage.setItem("quantMarcha", "")
-          localStorage.setItem("tipoSuspensao", "")
-          localStorage.setItem("tipoFreio", "")
-          localStorage.setItem("modalidade", "")
-          localStorage.setItem("marca", "")
-          localStorage.setItem("modelo", "")
-          localStorage.setItem("valor", "")
-          localStorage.setItem("numSerie", "")
-          localStorage.setItem("tipoPneu", "")
-          localStorage.setItem("observacoes", "")
-          localStorage.setItem("nf", "")
-          // navigate("/Etapa3")
-          return response.json()
-        } else {
-          console.error('Erro na requisição:', response.status, response.statusText);
-          throw new Error('Erro na requisição.');
-        }
-      }).then(data => {
-        console.log(data)
-      })
-      .catch(error => {
-        console.error('Erro ao cadastrar bike:', error);
-      });
+    navigate("/Etapa3")
+    //Código abaixo está funcionando
+    // fetch('http://localhost:5000/Bike/new', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(bike),
+    // })
+    //   .then(response => {
+    //     if (response.ok) {
+    //       localStorage.setItem("nick", "")
+    //       localStorage.setItem("tipoQuadro", "")
+    //       localStorage.setItem("quantMarcha", "")
+    //       localStorage.setItem("tipoSuspensao", "")
+    //       localStorage.setItem("tipoFreio", "")
+    //       localStorage.setItem("modalidade", "")
+    //       localStorage.setItem("marca", "")
+    //       localStorage.setItem("modelo", "")
+    //       localStorage.setItem("valor", "")
+    //       localStorage.setItem("numSerie", "")
+    //       localStorage.setItem("tipoPneu", "")
+    //       localStorage.setItem("observacoes", "")
+    //       localStorage.setItem("nf", "")
+    //       return response.json()
+    //     } else {
+    //       console.error('Erro na requisição:', response.status, response.statusText);
+    //       throw new Error('Erro na requisição.');
+    //     }
+    //   }).then(data => {
+    //     console.log(data)
+    //   })
+    //   .catch(error => {
+    //     console.error('Erro ao cadastrar bike:', error);
+    //   });
   }
 
   const onCancel = () => {
     navigate("/Etapa1")
   }
+
   return (
-    <div>
+    <>
       <h2>Confirme os Dados:</h2>
       <p>
         <strong>Número de Série:</strong> {bike.numSerie}
@@ -106,7 +108,7 @@ function ConfirmacaoBike() {
 
       <button onClick={onConfirm}>Confirmar</button>
       <button onClick={onCancel}>Cancelar</button>
-    </div>
+    </>
   );
 }
 

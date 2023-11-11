@@ -1,80 +1,169 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import React, { createElement, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 function Pagamento() {
+    const navigate = useNavigate();
 
-    const [novo, setNovo] = useState({
-        id: id,
-        titular: "",
+    const [cartao, setCartao] = useState({
         numCartao: "",
-        CVV: "",
+        titular: "",
+        dataVal: "",
+        cvv: "",
         modalidade: "",
-        quantParcelas: "",
-        validade: ""
     })
 
-    const [plano, setPlano] = useState("")
+    const [plano, setPlano] = useState({
+        nomePlano: "",
+        valor: "",
+        cobertura: [],
+    })
+
+    const [pagamento, setPagamento] = useState({
+        nomePlano: "",
+        valor: "",
+        cobertura: "",
+    })
+
+    const handlePlanoChange = (e) => {
+        setPlano({ ...plano, [e.target.name]: e.target.value })
+        if (e.target.value == "Pedal Essencial") {
+            setPlano({
+                ...plano, cobertura: [
+                    "Reparo de câmaras de ar",
+                    "Reparo ou troca de correntes",
+                    "Substituição ou regulagem de selim e canote de selim",
+                    "Substituição e regulagem manetes de freios e cabo de aço",
+                    "Substituição ou regulagem de freio dianteiro e traseiro"
+                ], valor: [
+                    0.08 * parseFloat(localStorage.getItem("valor"))
+                ]
+            })
+        } else if (e.target.value == "Pedal Leve") {
+            setPlano({
+                ...plano, cobertura: [
+                    "Reparo de câmaras de ar",
+                    "Reparo ou troca de correntes",
+                    "Substituição ou regulagem de selim e canote de selim",
+                    "Substituição e regulagem manetes de freios e cabo de aço",
+                    "Substituição ou regulagem de freio dianteiro e traseiro",
+                    "Lubrificação de correntes e coroas",
+                    "Transporte do segurado e Bike - limite de 50km, em caso de quebra ou acidente"
+                ], valor: [
+                    0.10 * parseFloat(localStorage.getItem("valor"))
+                ]
+            })
+        } else if (e.target.value == "Pedal Elite") {
+            setPlano({
+                ...plano, cobertura: [
+                    "Reparo de câmaras de ar",
+                    "Reparo ou troca de correntes",
+                    "Substituição ou regulagem de selim e canote de selim",
+                    "Substituição e regulagem manetes de freios e cabo de aço",
+                    "Substituição ou regulagem de freio dianteiro e traseiro",
+                    "Lubrificação de correntes e coroas",
+                    "Transporte do segurado e Bike - limite de 50km, em caso de quebra ou acidente",
+                    "Transporte do segurado e Bike - limite de 150km, em caso de quebra ou acidente",
+                    "Instalação de suporte de parede e chão para bike",
+                    " Serviço de Leva e Traz, com limite de 50km, mediante agendamento prévio"
+                ], valor: [
+                    0.12 * parseFloat(localStorage.getItem("valor"))
+                ]
+            })
+        }
+    }
 
     const handleChange = (e) => {
-        setNovo({ ...novo, [e.target.name]: e.target.value })
+        setPlano({ ...novo, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = e => {
-        e.preventDefault()
-        fetch(`URL DA API ${id ? id : ""}`, {
-            method: metodo,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(novo)
-        }).then(() => {
-            window.location = "/"
-        })
+        // e.preventDefault()
+        // fetch(`URL DA API ${id ? id : ""}`, {
+        //     method: metodo,
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(novo)
+        // }).then(() => {
+        //     window.location = "/"
+        // })
     }
+
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <h2>Pagamento</h2>
-                <fieldset>
-                    <h3>Insira os dados do seu cartão: </h3>
+                <fieldset className="plano">
+                    <h3>Escolha um plano: </h3>
 
-                    <label htmlFor="nome">Nome do Titular:</label>
-                    <input type="text" name="nome" minLength={1} value={novo.titular} onChange={handleChange} />
+                    <div className="inputBox">
+                        <div>
+                            <label htmlFor="plano">Plano:</label>
+                        </div>
+                        <input placeholder="Selecionar" type="text" list="planos" name="nomePlano" onChange={handlePlanoChange} />
+                        <datalist id="planos">
+                            <option value="Pedal Essencial">Pedal Essencial</option>
+                            <option value="Pedal Leve">Pedal Leve</option>
+                            <option value="Pedal Elite">Pedal Elite</option>
+                        </datalist>
+                    </div>
 
-                    <label htmlFor="cd">Selecione um tipo:</label>
-                    <select name="cd" value={novo.modalidade} onChange={handleChange}>
-                        <option value="Cartão de Crédito">Cartão de Crédito</option>
-                        <option value="Cartão de Débito" selected>Cartão de Débito</option>
-                    </select>
+                    <div className="coberturas">
+                        <h2>{plano.nomePlano}</h2>
+                        <h3>Coberturas:</h3>
 
-                    <label htmlFor="numCartao">Número do Cartão: </label>
-                    <input type="number" name="numCartao" minLength={16} maxLength={16} value={novo.numcCartao} onChange={handleChange} />
+                        <ul className="lista">
+                            {plano.cobertura.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
 
-                    <label htmlFor="validade">Validade: </label>
-                    <input type="date" name="validade" placeholder="MM/AA" value={novo.validade} onChange={handleChange} />
-
-                    <label htmlFor="cvv">CVV: </label>
-                    <input type="number" name="cvv" minLength={3} maxLength={3} value={novo.cvv} onChange={handleChange} />
-
-                    <label htmlFor="parcelas">Quantidade de parcelas:</label>
-                    <select name="parcelas" value={novo.quantParcelas} onChange={handleChange}>
-                        <option value="1" selected>1 parcela</option>
-                        <option value="2" >2 parcelas</option>
-                        <option value="3" > 03 parcelas</option>
-                        <option value="4" > 04 parcelas</option>
-                        <option value="5" > 05 parcelas</option>
-                        <option value="6" > 06 parcelas</option>
-                        <option value="7" > 07 parcelas</option>
-                        <option value="8" > 08 parcelas</option>
-                        <option value="9" > 09 parcelas</option>
-                        <option value="10" > 10 parcelas</option>
-                        <option value="11" > 11 parcelas</option>
-                        <option value="12" > 12 parcelas</option>
-                    </select>
-
-                    <button className='Button' type="submit">Próximo</button>
+                    <div className="preco">
+                        <h3>Preço - R${plano.valor}</h3>
+                        
+                        <label htmlFor="parcelas">Quantidade de parcelas:</label>
+                        <select name="parcelas" value={pagamento.quantParcelas} onChange={handleChange}>
+                            <option value="1" selected>1 parcela</option>
+                            <option value="2" >2 parcelas</option>
+                            <option value="3" > 03 parcelas</option>
+                            <option value="4" > 04 parcelas</option>
+                            <option value="5" > 05 parcelas</option>
+                            <option value="6" > 06 parcelas</option>
+                            <option value="7" > 07 parcelas</option>
+                            <option value="8" > 08 parcelas</option>
+                            <option value="9" > 09 parcelas</option>
+                            <option value="10" > 10 parcelas</option>
+                            <option value="11" > 11 parcelas</option>
+                            <option value="12" > 12 parcelas</option>
+                        </select>
+                    </div>
                 </fieldset>
 
+                <fieldset className="cartões">
+                    <h2>Cartão</h2>
+                    <div>
+                        <label htmlFor="nome">Nome do Titular:</label>
+                        <input type="text" name="nome" minLength={1} value={cartao.titular} onChange={handleChange} />
+
+                        <label htmlFor="cd">Selecione um tipo:</label>
+                        <select name="cd" value={cartao.modalidade} onChange={handleChange}>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Cartão de Débito" selected>Cartão de Débito</option>
+                        </select>
+
+                        <label htmlFor="numCartao">Número do Cartão: </label>
+                        <input type="number" name="numCartao" minLength={16} maxLength={16} value={cartao.numCartao} onChange={handleChange} />
+
+                        <label htmlFor="validade">Validade: </label>
+                        <input type="date" name="validade" placeholder="MM/AA" value={cartao.dataVal} onChange={handleChange} />
+
+                        <label htmlFor="cvv">CVV: </label>
+                        <input type="number" name="cvv" minLength={3} maxLength={3} value={cartao.cvv} onChange={handleChange} />
+                    </div>
+                </fieldset>
+
+                <button className='Button' type="submit">Próximo</button>
             </form>
         </>
     )

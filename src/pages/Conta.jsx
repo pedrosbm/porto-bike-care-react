@@ -1,4 +1,5 @@
 import Account from "../Componentes/Conta/Account";
+import ListaBikes from "../Componentes/ListaBikes/ListaBikes";
 import NavBarS from "../Componentes/NavBarS/NavBarS";
 import Rodape from "../Componentes/Rodape/Rodape";
 import { Navigate } from "react-router-dom";
@@ -10,6 +11,7 @@ function Conta() {
       <>
         <NavBarS />
         <Account />
+        <ListaBikes/>
         <Rodape />
       </>
     );

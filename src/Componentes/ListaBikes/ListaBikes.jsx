@@ -1,48 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import bikeIcon from '../../imgs/bikeIcon.png'
+import './ListaBikes.css'
 
 function ListaBikes() {
     const [bikes, setBikes] = useState([])
 
     useEffect(() => {
-        fetch("URL DA API").then((resp) => {
-            return Response.json();
-        }).then((resp) => {
-            setBikes(resp);
-            console.log(resp);
-        }).catch((error) => {
-            console.log(error);
-        })
+        fetch(`http://localhost:5000/Bike/list/${parseInt(localStorage.getItem("id"))}`)
+            .then((resp) => {
+                return resp.json();
+            }).then((data) => {
+                setBikes(data)
+            }).catch((error) => {
+                console.log(error);
+            })
+        
     }, [])
-    
-    const handleDelete = (id) => {
-        fetch("URL DA API" + id, {
-            method: "delete"
-        }).then(() => {
-            window.location = "/"
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
+
     return (
         <>
             <h1>Bikes Cadastradas:</h1>
-            <Link to="/incluir">Cadastrar Bike</Link>
             <section>
-                {bikes.map((bike) =>
-                    <span key={bike.id}>
-                        <p>{bike.nick}</p>
-                        <p>{bike.tipoQuadro}</p>
-                        <p>{bike.quantMarcha}</p>
-                        <p>{bike.tipoSuspensao}</p>
-                        <p>{bike.acessorio}</p>
-                        <p>{bike.tipoPneu}</p>
-                        <p>{bike.observacoes}</p>
-                        <p> <Link to={`/editar/${bike.id}`}>Atualizar</Link></p>
-                        <p><button title="Excluir" onClick={handleDelete.bind(this, bike.id)}>Excluir</button></p>
-                    </span>
+                {bikes.map((bike, index) =>
+                    <div key={index} className="userBike">
+                        <div className="bikeData">
+                            <div>
+                                <img src={bikeIcon} alt="bikeIcon" />
+                            </div>
+
+                            <div>
+                                <p>Apelido - {bike.nick}</p>
+                                <p>Marca - {bike.marca}</p>
+                            </div>
+
+                        </div>
+                        
+                        <hr className="line"></hr>
+
+                        <div className="bikeStatus">
+                            <div>
+                                <p>Modalidade - {bike.modalidade}</p>
+                                <p>Número de série - {bike.numSerie}</p>
+                            </div>
+                        </div>
+                    </div>
                 )}
             </section>
+            <Link to="/Etapa1">Cadastrar Bike</Link>
         </>
     )
 }
