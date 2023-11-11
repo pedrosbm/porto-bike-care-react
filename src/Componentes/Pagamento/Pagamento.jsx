@@ -4,6 +4,14 @@ import { useNavigate } from 'react-router-dom'
 function Pagamento() {
     const navigate = useNavigate();
 
+    const [apolice, setApolice] = useState({
+        titular: localStorage.getitem("nome"),
+        infoBike: localStorage.getItem("observacoes"),
+        valorAssegurado: localStorage.getItem("valor"),
+        dataInicio: new Date(),
+        clienteId: localStorage.getItem("id")
+    });
+
     const [cartao, setCartao] = useState({
         numCartao: "",
         titular: "",
@@ -121,7 +129,7 @@ function Pagamento() {
 
                     <div className="preco">
                         <h3>Preço - R${plano.valor}</h3>
-                        
+
                         <label htmlFor="parcelas">Quantidade de parcelas:</label>
                         <select name="parcelas" value={pagamento.quantParcelas} onChange={handleChange}>
                             <option value="1" selected>1 parcela</option>
@@ -137,6 +145,8 @@ function Pagamento() {
                             <option value="11" > 11 parcelas</option>
                             <option value="12" > 12 parcelas</option>
                         </select>
+
+
                     </div>
                 </fieldset>
 
@@ -144,7 +154,7 @@ function Pagamento() {
                     <h2>Cartão</h2>
                     <div>
                         <label htmlFor="nome">Nome do Titular:</label>
-                        <input type="text" name="nome" minLength={1} value={cartao.titular} onChange={handleChange} />
+                        <input type="text" name="nome" minLength={1} onChange={handleChange} />
 
                         <label htmlFor="cd">Selecione um tipo:</label>
                         <select name="cd" value={cartao.modalidade} onChange={handleChange}>
@@ -153,13 +163,13 @@ function Pagamento() {
                         </select>
 
                         <label htmlFor="numCartao">Número do Cartão: </label>
-                        <input type="number" name="numCartao" minLength={16} maxLength={16} value={cartao.numCartao} onChange={handleChange} />
+                        <input type="number" name="numCartao" minLength={16} maxLength={16} onChange={handleChange} />
 
                         <label htmlFor="validade">Validade: </label>
-                        <input type="date" name="validade" placeholder="MM/AA" value={cartao.dataVal} onChange={handleChange} />
+                        <input type="text" name="validade" placeholder="MM/AA" onChange={handleChange} />
 
                         <label htmlFor="cvv">CVV: </label>
-                        <input type="number" name="cvv" minLength={3} maxLength={3} value={cartao.cvv} onChange={handleChange} />
+                        <input type="number" name="cvv" minLength={3} maxLength={3} onChange={handleChange} />
                     </div>
                 </fieldset>
 
