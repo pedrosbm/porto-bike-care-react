@@ -25,7 +25,6 @@ export default function App() {
         <Route path='/Etapa3' element={<Etapa3/>}/>
         <Route path='/Etapa4' element={<Etapa4/>}/>
         <Route path='/Finalizacao' element={<Finalizacao/>}/>
-        
       </Routes>
     </Router>
   );

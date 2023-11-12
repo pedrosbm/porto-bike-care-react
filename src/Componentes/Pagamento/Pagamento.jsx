@@ -99,7 +99,6 @@ function Pagamento() {
         setPagamento({ ...pagamento, quantParcelas: parseInt(quantParcelas), valor: parseFloat(novoValor) });
     }
 
-
     const handleCartaoChange = (e) => {
         if (e.target.name == "cvv") {
             setCartao({ ...cartao, cvv: parseInt(e.target.value) })
@@ -123,7 +122,11 @@ function Pagamento() {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                setPlano({ ...plano, apoliceId: data["apoliceId"] })
+                
+                setPlano(prevPlano => ({
+                    ...prevPlano,
+                    apoliceId: data["apoliceId"]
+                }));
             } else {
                 console.error('Erro na requisição:', response.status, response.statusText);
                 throw new Error('Erro na requisição.');
@@ -145,8 +148,10 @@ function Pagamento() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
-                setCartao({ ...cartao, pagamentoId: data["pagametoId"] })
+                console.log(data); setPlano(prevPlano => ({
+                    ...prevPlano,
+                    apoliceId: data["apoliceId"]
+                }));
             } else {
                 console.error('Erro na requisição:', response.status, response.statusText);
                 throw new Error('Erro na requisição.');
@@ -200,19 +205,38 @@ function Pagamento() {
         }
     };
 
+    const limparBike = () => {
+        localStorage.setItem("nick", "")
+        localStorage.setItem("tipoQuadro", "")
+        localStorage.setItem("quantMarcha", "")
+        localStorage.setItem("tipoSuspensao", "")
+        localStorage.setItem("tipoFreio", "")
+        localStorage.setItem("modalidade", "")
+        localStorage.setItem("marca", "")
+        localStorage.setItem("modelo", "")
+        localStorage.setItem("valor", "")
+        localStorage.setItem("numSerie", "")
+        localStorage.setItem("tipoPneu", "")
+        localStorage.setItem("observações", "")
+        localStorage.setItem("nf", "")
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             await novoApolice(apolice);
-            await novoPagamento(pagamento);
-            await novoPlano(plano);
-            await novoCartao(cartao);
+            // await novoPagamento(pagamento);
+            console.log("Valores que foram definidos: ")
+            console.log(plano.apoliceId)
+            // console.log(cartao.pagamentoId)
+            // await novoPlano(plano);
+            // await novoCartao(cartao);
+            // limparBike();
+            // navigate("/Finalizacao")
         } catch (error) {
             console.error('Erro geral:', error);
         }
     };
-
 
     return (
         <>
