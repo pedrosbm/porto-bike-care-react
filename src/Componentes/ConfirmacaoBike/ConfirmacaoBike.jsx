@@ -24,7 +24,7 @@ function ConfirmacaoBike() {
 
   const onConfirm = () => {
     navigate("/Etapa3")
-    fetch('http://localhost:5000/Bike/new', {
+    fetch('http://localhost:8080/Bike/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

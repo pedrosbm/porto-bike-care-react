@@ -7,7 +7,7 @@ function ListaBikes() {
     const [bikes, setBikes] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/Bike/list/${parseInt(localStorage.getItem("id"))}`)
+        fetch(`http://localhost:8080/Bike/list/${parseInt(localStorage.getItem("id"))}`)
             .then((resp) => {
                 return resp.json();
             }).then((data) => {
@@ -18,7 +18,7 @@ function ListaBikes() {
     }, [])
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/Bike/delete/${id}`)
+        fetch(`http://localhost:8080/Bike/delete/${id}`)
             .then((resp) => {
                 return resp.json();
             }).then((data) => {

@@ -38,7 +38,7 @@ function FormsClie() {
   const cadastrar = e => {
     if (e["tipo"] == "PF") {
       console.log("aqui")
-      fetch('http://localhost:5000/Cliente/CadastroPf', {
+      fetch('http://localhost:8080/Cliente/CadastroPf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ function FormsClie() {
 
         });
     } else if (e["tipo"] == "PJ") {
-      fetch('http://localhost:5000/Cliente/CadastroPj', {
+      fetch('http://localhost:8080/Cliente/CadastroPj', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

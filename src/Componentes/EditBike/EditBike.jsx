@@ -16,7 +16,7 @@ export default function () {
     let { id } = useParams('id')
 
     useEffect(() => {
-        fetch(`http://localhost:5000/Bike/listOne/${id}`)
+        fetch(`http://localhost:8080/Bike/listOne/${id}`)
             .then((resp) => {
                 return resp.json();
             }).then((data) => {
@@ -29,7 +29,7 @@ export default function () {
     const handleSubmit = e => {
         e.preventDefault()
 
-        fetch('http://localhost:5000/Bike/edit', {
+        fetch('http://localhost:8080/Bike/edit', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

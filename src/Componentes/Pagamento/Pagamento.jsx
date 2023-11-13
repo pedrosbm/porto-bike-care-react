@@ -112,7 +112,7 @@ function Pagamento() {
     //Sequência de post's
     const novoApolice = async (apolice) => {
         try {
-            const response = await fetch('http://localhost:5000/Apolice/new', {
+            const response = await fetch('http://localhost:8080/Apolice/new', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ function Pagamento() {
 
     const novoPagamento = async (pagamento) => {
         try {
-            const response = await fetch('http://localhost:5000/Pagamento/new', {
+            const response = await fetch('http://localhost:8080/Pagamento/new', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ function Pagamento() {
 
     const novoPlano = async (plano) => {
         try {
-            const response = await fetch(`http://localhost:5000/Plano/new/${parseInt(localStorage.getItem("id"))}`, {
+            const response = await fetch(`http://localhost:8080/Plano/new/${parseInt(localStorage.getItem("id"))}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -178,7 +178,7 @@ function Pagamento() {
 
     const novoCartao = async (cartao) => {
         try {
-            const response = await fetch(`http://localhost:5000/Cartão/new/${parseInt(localStorage.getItem("id"))}`, {
+            const response = await fetch(`http://localhost:8080/Cartão/new/${parseInt(localStorage.getItem("id"))}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

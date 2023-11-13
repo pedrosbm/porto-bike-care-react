@@ -14,7 +14,7 @@ export default function () {
     let { id } = useParams('id')
 
     useEffect(() => {
-        fetch(`http://localhost:5000/Cartao/listOne/${id}`)
+        fetch(`http://localhost:8080/Cartao/listOne/${id}`)
             .then((resp) => {
                 return resp.json();
             }).then((data) => {
@@ -27,7 +27,7 @@ export default function () {
     const handleSubmit = e => {
         e.preventDefault()
 
-        fetch('http://localhost:5000/Cartao/edit', {
+        fetch('http://localhost:8080/Cartao/edit', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
