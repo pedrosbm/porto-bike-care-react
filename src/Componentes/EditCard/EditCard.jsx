@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom"
 import NavbarP from '../NavBarS/NavBarS'
 import Footer from '../Rodape/Rodape'
 import e from "cors";
 
-export default function () {
+export default function EditCard() {
 
     const navigate = useNavigate();
 
@@ -14,10 +13,11 @@ export default function () {
     let { id } = useParams('id')
 
     useEffect(() => {
-        fetch(`http://localhost:8080/Cartao/listOne/${id}`)
+        fetch(`http://localhost:8080/Cartão/listOne/${id}`)
             .then((resp) => {
                 return resp.json();
             }).then((data) => {
+                data["dataVal"] = dateConv(data["dataVal"])
                 setCartao(data)
             }).catch((error) => {
                 console.log(error);
@@ -27,12 +27,13 @@ export default function () {
     const handleSubmit = e => {
         e.preventDefault()
 
-        fetch('http://localhost:8080/Cartao/edit', {
+        console.log(cartao)
+        fetch('http://localhost:8080/Cartão/edit', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(bike),
+            body: JSON.stringify(cartao),
         })
             .then(response => {
                 if (response.ok) {
@@ -47,94 +48,71 @@ export default function () {
             .catch(error => {
                 console.error('Erro ao cadastrar bike:', error);
             });
-        navigate("/")
+        navigate("/Conta")
     }
 
     const handleChange = (e) => {
-        setBike({ ...bike, [e.target.name]: e.target.value });
+        setCartao({ ...cartao, [e.target.name]: e.target.value });
     };
 
-    const ver = () => {
-        console.log(bike)
+    const dateConv = e =>{
+        const lista = e.split("-")
+        const ano = lista[0]
+        const data = lista[1] + "/" + ano[2] + ano[3] 
+        return data
+    }
+
+    const handleDataChange = e =>{
+        const data = dateConv(e.target.value)
+        setCartao({...cartao, [e.target.name]: data})
     }
 
     return (
         <>
             <NavbarP />
             <div className="wrapper">
-                <h2>Editar Bicicleta</h2>
-
-                <button onClick={ver}>consultar</button>
-
+                <h2>Editar Cartão</h2>
                 <form className="forms" onSubmit={handleSubmit}>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="nick">Apelido: </label>
+                    <div>
+                        <div className="inputBox">
+                            <label htmlFor="nome">Nome do Titular:</label>
+                            <input value={cartao["titular"]} type="text" name="titular" minLength={1} onChange={handleChange} />
                         </div>
-                        <input value={bike["nick"]} type="text" name='nick' minLength={1} placeholder='Bicicleta amarela' onChange={handleChange} />
-                    </div>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="quadro">Tipo de Quadro:</label>
-                        </div>
-                        <select className='selects' value={bike["tipoQuadro"]} type="text" list="quadro" name="quadro" onChange={handleChange}>
-                            <option defaultChecked>Selecionar quadro</option>
-                            <option value="aço">Aço cromo-molibdênio</option>
-                            <option value="fibra">Fibra de carbono</option>
-                            <option value="aluminio">Alumínio</option>
-                            <option value="titanio">Titânio</option>
-                        </select>
-                    </div>
+                        <div className="inputBox">
+                            <div>
+                                <label htmlFor="modalidade" className="infoMod">Selecione um tipo:</label>
+                            </div>
+                            <select className='selects' value={cartao["modalidade"]} required name="modalidade" onChange={handleChange}>
+                                <option defaultChecked>Selecionar Modalidade</option>
+                                <option value="Crédito">Cartão de Crédito</option>
+                                <option value="Débito">Cartão de Débito</option>
+                            </select>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="quantmarcha">Quantidade de Marchas: </label>
                         </div>
-                        <select className='selects' value={bike["quantMarcha"]} type="number" name="quantmarcha" onChange={handleChange} >
-                            <option defaultChecked>Selecionar Quantidade</option>
-                            <option value="18">18 marchas</option>
-                            <option value="21">21 marchas</option>
-                            <option value="24">24 marchas </option>
-                            <option value="27">27 marchas</option>
-                            <option value="30">30 marchas</option>
-                        </select>
-                    </div>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="suspensao">Tipo de suspensão:</label>
+                        <div className="inputBox">
+                            <div>
+                                <label htmlFor="numCartao">Número do Cartão: </label>
+                            </div>
+                            <input value={cartao["numCartao"]} type="number" name="numCartao" minLength={16} maxLength={16} onChange={handleChange} />
                         </div>
-                        <input value={bike["tipoSuspensao"]} type="text" name='suspensao' minLength={1} placeholder='Suspensão com Molas' onChange={handleChange} />
-                    </div>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="freio">Freio:</label>
+                        <div className="inputBox">
+                            <div>
+                                <label htmlFor="validade">Validade: </label>
+                            </div>
+                            <input type="date" name="dataVal" placeholder="MM/AA" onChange={handleDataChange} />
                         </div>
-                        <select className='selects' value={bike["tipoFreio"]} type="text" name="freio" onChange={handleChange}>
-                            <option defaultChecked>Selecionar freio</option>
-                            <option value="Cantilevers">Cantilevers</option>
-                            <option value="Ferradura">Ferradura</option>
-                            <option value="V-brake">V-brake</option>
-                            <option value="Disco Mecânico">Disco Mecânico</option>
-                            <option value="Disco Hidráulico">Disco Hidráulico</option>
-                        </select>
-                    </div>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="pneu">Tipo de pneu: </label>
+                        <div className='inputBox'>
+                            <div>
+                                <label htmlFor="cvv" className="infocvv">CVV: </label>
+                            </div>
+                            <input value={cartao["cvv"]} type="number" name="cvv" minLength={3} maxLength={3} onChange={handleChange} />
                         </div>
-                        <input value={bike["tipoPneu"]} type="text" name='pneu' minLength={1} placeholder='Pneus Híbridos' onChange={handleChange} />
-                    </div>
 
-                    <div className="inputBox">
-                        <div>
-                            <label htmlFor="obs">Observações: </label>
-                        </div>
-                        <input value={bike["observacoes"]} type="text" name='obs' onChange={handleChange} />
                     </div>
 
                     <button type="submit" className="Button">

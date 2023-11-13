@@ -1,29 +1,46 @@
-.tituBike{
-    margin-top: -260px;
+.userBike{
+
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px dashed rgb(222, 222, 222);
+    display: flex;
+    align-items: center;
 }
 
-.tituBike{
-    margin-left: 90px;
-}
-.bikeIcon{
-    width: 60px;
+.list   {
+    margin-top: 5rem;
+    margin-inline: 12rem;
 }
 
-
-.linha1bike{
-    width: 900px;
-    margin-left: 80px;
+.line   {
+    height: 5rem;
+    margin-inline: 2rem;
 }
 
-
-.bikeStatus{
-    color: black;
+.bikeIcon   {
+    margin-right: 2rem;
+    width: 4rem;
+    height: auto;
 }
 
+.userBike div   {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 
+.option {
+    padding: 0.3rem;
+    margin: 0.5rem;
+    padding-inline: 1rem;
+    border: none;
+    font-size: medium;
+    color: #fff;
+    text-decoration: none;
+    background-color: #01A1FC;
+    cursor: pointer;
+}
 
-
-.linkCadas{
-    margin-left: 90px;
-    margin-top: 80px;
+.optionVar  {
+    background-color: red;
 }

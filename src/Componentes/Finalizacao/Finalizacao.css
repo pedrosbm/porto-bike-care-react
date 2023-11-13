@@ -4,31 +4,9 @@
     font-size: 40px;
 }
 
-.homemBike{
-    margin-left: 650px;
-    margin-top: 60px;
+.Finalizacao    {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block: 10rem;
 }
-
-
-.Button5{
-    transition: 0.2s;
-    border-radius: 10rem;
-    border: solid 3px #00a2ff;
-    width: 28rem;
-    padding-block: 10px;
-    font-size: large;
-    background-color: #01A1FC;
-    color: white;
-    cursor: pointer;
-    margin-top: 30px;
-    margin-left:585px;
-    margin-top: 60px;
-
-
-
-}
-.Button5:hover {
-    transition: 0.2s;
-    background-color: white;
-    color: #01A1FC;
-  }

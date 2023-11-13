@@ -229,15 +229,15 @@ function Pagamento() {
     };
 
     return (
-        <>
+        <div className="wrapper">
             <form onSubmit={handleSubmit}>
                 <h2 className="titlePag">Pagamento</h2>
-                <hr className="line3"/>
+                <hr className="line3" />
                 <fieldset className="plano">
                     <h3 className="opPag">Escolha um plano </h3>
 
                     <div className="inputBox">
-                       
+
                         <select placeholder="Selecionar" type="text" name="nomePlano" onChange={handlePlanoChange} className="selePlano">
                             <option defaultChecked>Selecionar plano</option>
                             <option value="Pedal Essencial">Pedal Essencial</option>
@@ -279,49 +279,49 @@ function Pagamento() {
                             </select>
                             <h3>de: R${parseFloat(pagamento.valor).toFixed(2)}</h3>
                         </div>
-                       
+
                     </div>
-                  
+
                 </fieldset>
-                <hr className="line4"/>
+                <hr className="line4" />
                 <fieldset className="cartões">
                     <h2 className="titleCartao">Cartão</h2>
-                   
+
                     <div>
                         <div className="cartaoinfo1">
-                        <label htmlFor="nome">Nome do Titular:</label>
-                        <input type="text" name="titular" minLength={1} onChange={handleCartaoChange} />
+                            <label htmlFor="nome">Nome do Titular:</label><br />
+                            <input type="text" name="titular" minLength={1} onChange={handleCartaoChange} />
                         </div>
 
-                        <div  className="cartaoinfo1">
-                        <label htmlFor="modalidade" className="infoMod">Selecione um tipo:</label>
-                        <select required name="modalidade" onChange={handleCartaoChange}>
-                            <option defaultChecked>Selecionar Modalidade</option>
-                            <option value="Crédito">Cartão de Crédito</option>
-                            <option value="Débito">Cartão de Débito</option>
-                        </select>
-
-                        </div>
-                     
                         <div className="cartaoinfo1">
-                        <label htmlFor="numCartao">Número do Cartão: </label>
-                        <input type="number" name="numCartao" minLength={16} maxLength={16} onChange={handleCartaoChange} />
+                            <label htmlFor="modalidade" className="infoMod">Selecione um tipo:</label><br />
+                            <select required name="modalidade" onChange={handleCartaoChange}>
+                                <option defaultChecked>Selecionar Modalidade</option>
+                                <option value="Crédito">Cartão de Crédito</option>
+                                <option value="Débito">Cartão de Débito</option>
+                            </select>
+
+                        </div>
+
+                        <div className="cartaoinfo1">
+                            <label htmlFor="numCartao">Número do Cartão: </label><br />
+                            <input type="number" name="numCartao" minLength={16} maxLength={16} onChange={handleCartaoChange} /><br />
                         </div>
 
                         <div className="cartaoinfo2">
-                        <label htmlFor="validade">Validade: </label>
-                        <input type="text" name="dataVal" placeholder="MM/AA" onChange={handleCartaoChange} />
+                            <label htmlFor="validade">Validade: </label><br />
+                            <input type="text" name="dataVal" placeholder="MM/AA" onChange={handleCartaoChange} /><br />
 
-                        <label htmlFor="cvv" className="infocvv">CVV: </label>
-                        <input type="number" name="cvv" minLength={3} maxLength={3} onChange={handleCartaoChange} />
+                            <label htmlFor="cvv" className="infocvv">CVV: </label><br />
+                            <input type="number" name="cvv" minLength={3} maxLength={3} onChange={handleCartaoChange} /><br />
                         </div>
-                       
+
                     </div>
+                    <button className='Button' type="submit">Próximo</button>
                 </fieldset>
 
-                <button className='Button' type="submit">Próximo</button>
             </form>
-        </>
+        </div>
     )
 }
 

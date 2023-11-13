@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom"
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import NavbarP from '../NavBarS/NavBarS'
 import Footer from '../Rodape/Rodape'
 import e from "cors";
@@ -49,25 +46,18 @@ export default function () {
             .catch(error => {
                 console.error('Erro ao cadastrar bike:', error);
             });
-        navigate("/")
+        navigate("/Conta")
     }
 
     const handleChange = (e) => {
         setBike({ ...bike, [e.target.name]: e.target.value });
     };
 
-    const ver = () => {
-        console.log(bike)
-    }
-
     return (
         <>
             <NavbarP />
             <div className="wrapper">
                 <h2>Editar Bicicleta</h2>
-
-                <button onClick={ver}>consultar</button>
-
                 <form className="forms" onSubmit={handleSubmit}>
 
                     <div className="inputBox">

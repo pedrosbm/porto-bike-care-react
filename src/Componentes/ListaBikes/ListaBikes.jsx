@@ -22,22 +22,24 @@ function ListaBikes() {
             .then((resp) => {
                 return resp.json();
             }).then((data) => {
-                setBikes(data)
+                console.log(data)
+                location.reload();
             }).catch((error) => {
                 console.log(error);
             })
     }
 
     return (
-        <>
+        <div className="list">
             <h1>Bikes Cadastradas:</h1>
             <section>
                 {bikes.map((bike, index) =>
                     <div key={index} className="userBike">
+                        <div>
+                            <img className="bikeIcon" src={bikeIcon} alt="bikeIcon" />
+                        </div>
+
                         <div className="bikeData">
-                            <div>
-                                <img src={bikeIcon} alt="bikeIcon" />
-                            </div>
 
                             <div>
                                 <p>Apelido - {bike.nick}</p>
@@ -60,14 +62,14 @@ function ListaBikes() {
                         <div className="bikeOptions">
                             <div>
                                 <Link className="option" to={`/Editar/${bike.id}`}>Editar</Link>
-                                <button className="option" onClick={handleDelete.bind(this, bike.id)} >Apagar{bike.numSerie}</button>
+                                <button className="option optionVar" onClick={handleDelete.bind(this, bike.id)} >Apagar {bike.nick}</button>
                             </div>
                         </div>
                     </div>
                 )}
             </section>
-            <Link to="/Etapa1">Cadastrar Bike</Link>
-        </>
+            <Link className="option" to="/Etapa1">Cadastrar Bike</Link>
+        </div>
     )
 }
 export default ListaBikes;

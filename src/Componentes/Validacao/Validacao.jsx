@@ -63,7 +63,7 @@ function Validacao() {
         return;
       }
 
-      navigate("/Finalizacao");
+      navigate("/Etapa4");
 
     } catch (error) {
       console.error("Erro ao enviar as imagens:", error);
@@ -104,14 +104,8 @@ function Validacao() {
               >
                 Tirar foto da frente da bike
               </button>
-
-              <p>Para reenviar imagens apenas clique novamente no botão</p>
             </div>
           </fieldset>
-        
-          <Link to='/Etapa4'>
-            burlar
-          </Link>
           <button type="submit" className="Button">
             Confirmar
           </button>

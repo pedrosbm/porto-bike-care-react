@@ -3,6 +3,7 @@ import ListaBikes from "../Componentes/ListaBikes/ListaBikes";
 import NavBarS from "../Componentes/NavBarS/NavBarS";
 import Rodape from "../Componentes/Rodape/Rodape";
 import { Navigate } from "react-router-dom";
+import ListaCartoes from '../Componentes/listaCartoes/ListaCartoes'
 
 function Conta() {
 
@@ -12,6 +13,7 @@ function Conta() {
         <NavBarS />
         <Account />
         <ListaBikes/>
+        <ListaCartoes/>
         <Rodape />
       </>
     );

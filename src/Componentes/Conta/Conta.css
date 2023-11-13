@@ -1,32 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Jost:wght@500&display=swap');
 
 .b1{
-    font-size: 40px;
-}
-.d1{
-    font-size: 40px;
+    font-size: 2rem !important;
 }
 .accountData{
     font-size: 20px;
 }
 
-.info span{
-    position: relative;
-    left: 20px;
+.account    {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-inline: 12rem;
+    margin-block: 2rem;
+}
+
+.AccountfirstBox    {
+    display: flex;
+}
+
+.lock   input{
+    color: white;
+    background-color: rgb(156, 156, 156) !important;
+    cursor: pointer;
+}
+
+.input2 input{
+    width: 20rem !important;
+}
+
+.Button2 {
+    width: 20rem !important;
 }
 
 .welcome    {
-    width: 40rem;
+    display: flex;
+    align-items: center;
     margin-right: 50px;
 }
 
 .welcome img   {
+    width: 10rem;
+    margin-right: 1rem;
     height: min-content;
-}
-
-.info   {
-    display: flex;
-    flex-direction: column;
 }
 
 .info div{
@@ -39,21 +55,13 @@
     border-radius: 10rem;
 }
 
-.g2{
-    margin-top: 10px;
-    margin-left: -40px;
-}
-
 .logout{
-    margin-left: 35rem;
+    position: relative;
+    top: 30px;
     width: 100px;
     height: 40px;
     background-color:#ff1500 ;
-    border-color: #ff1500; 
+    border-color: none; 
     color: #EDEDED;
     border-radius: 50px;
-}
-
-.account div:nth-child(1){
-    display: flex;
 }
