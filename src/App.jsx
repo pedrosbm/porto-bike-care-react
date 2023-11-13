@@ -11,6 +11,8 @@ import Etapa2 from './pages/ConfirmacaoBike'
 import Etapa3 from './pages/ValidacaoPage'
 import Etapa4 from './pages/Pagamento'
 import Finalizacao from './pages/FinalizacaoPage'
+import EditBike from './Componentes/EditBike/EditBike';
+import EditCard from './Componentes/EditCard/EditCard';
 
 export default function App() {
   return (
@@ -25,6 +27,8 @@ export default function App() {
         <Route path='/Etapa3' element={<Etapa3/>}/>
         <Route path='/Etapa4' element={<Etapa4/>}/>
         <Route path='/Finalizacao' element={<Finalizacao/>}/>
+        <Route path='/Editar/:id' element={<EditBike/>}/>
+        <Route path='/EditarCartao/:id' element={<EditCard/>}/>
       </Routes>
     </Router>
   );

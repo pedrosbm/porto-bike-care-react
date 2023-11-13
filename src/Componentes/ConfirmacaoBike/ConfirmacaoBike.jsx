@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import './ConfirmacaoBike.css'
 
 function ConfirmacaoBike() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function ConfirmacaoBike() {
     valor: parseInt(localStorage.getItem("valor")),
     numSerie: localStorage.getItem("numSerie"),
     tipoPneu: localStorage.getItem("tipoPneu"),
-    observações: localStorage.getItem("observações"),
+    observações: localStorage.getItem("observacoes"),
     nf: parseInt(localStorage.getItem("nf")),
     clienteId: parseInt(localStorage.getItem("id")),
   });
@@ -50,51 +51,65 @@ function ConfirmacaoBike() {
   }
 
   return (
-    <>
-      <h2>Confirme os Dados:</h2>
-      <p>
-        <strong>Número de Série:</strong> {bike.numSerie}
-      </p>
-      <p>
-        <strong>Tipo de Quadro:</strong> {bike.tipoQuadro}
-      </p>
-      <p>
-        <strong>Apelido:</strong> {bike.nick}
-      </p>
-      <p>
-        <strong>Quantidade de Marchas:</strong> {bike.quantMarcha}
-      </p>
-      <p>
-        <strong>Modalidade:</strong> {bike.modalidade}
-      </p>
-      <p>
-        <strong>Marca:</strong> {bike.marca}
-      </p>
-      <p>
-        <strong>Valor:</strong> {bike.valor}
-      </p>
-      <p>
-        <strong>Tipo de Suspensão:</strong> {bike.tipoSuspensao}
-      </p>
-      <p>
-        <strong>Freio:</strong> {bike.tipoFreio}
-      </p>
-      <p>
-        <strong>Modelo:</strong> {bike.modelo}
-      </p>
-      <p>
-        <strong>Tipo de Pneu:</strong> {bike.tipoPneu}
-      </p>
-      <p>
-        <strong>Observações:</strong> {bike.observações}
-      </p>
-      <p>
-        <strong>Nota Fiscal:</strong> {bike.nf}
-      </p>
+    <div className="wrapper">
+      <h2 className="confirDados">Confirme os Dados:</h2>
+      <div className="infosDados">
+        <p className="h1"> Número de Série </p>
+        {bike.numSerie}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Tipo de Quadro </p>
+        {bike.tipoQuadro}
+      </div>
+      <div className="infosDados">
+        <p className="h1">Quantidade de Marchas </p>
+        {bike.quantMarcha}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Modalidade </p>
+        {bike.modalidade}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Marca </p>
+        {bike.marca}
+      </div>
+      <div className="infosDados">
+        <p className="h1">Valor</p>
+        {bike.valor}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Tipo de Suspensão</p>
+        {bike.tipoSuspensao}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Freio </p>
+        {bike.tipoFreio}
+      </div>
+      <div className="infosDados">
+        <p className="h1">Modelo </p>
+        {bike.modelo}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Tipo de Pneu </p>
+        {bike.tipoPneu}
+      </div>
+      <div className="infosDados">
+        <p className="h1">Observações </p>
+        {bike.observações}
+      </div>
+      <div className="infosDados">
+        <p className="h1"> Nota Fiscal </p>
+        {bike.nf}
+      </div>
 
-      <button onClick={onConfirm}>Confirmar</button>
-      <button onClick={onCancel}>Cancelar</button>
-    </>
+
+      <div className="botoesConfig">
+        <button onClick={onConfirm} className="Button">Confirmar</button>
+        <button onClick={onCancel} className="Button b2">Voltar</button>
+
+      </div>
+
+    </div>
   );
 }
 

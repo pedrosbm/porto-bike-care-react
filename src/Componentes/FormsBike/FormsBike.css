@@ -1,16 +1,14 @@
-.textFinalizacao{
-    text-align: center;
-    margin-top: 60px;
-    font-size: 40px;
+.wrapper{
+
+    margin-top: -70px;
 }
 
-.homemBike{
-    margin-left: 650px;
-    margin-top: 60px;
+.forms{
+    margin-left: 3px;
+    margin-top: 30px;
 }
 
-
-.Button5{
+.Button2 {
     transition: 0.2s;
     border-radius: 10rem;
     border: solid 3px #00a2ff;
@@ -21,13 +19,9 @@
     color: white;
     cursor: pointer;
     margin-top: 30px;
-    margin-left:585px;
-    margin-top: 60px;
-
-
-
 }
-.Button5:hover {
+
+.Button2:hover {
     transition: 0.2s;
     background-color: white;
     color: #01A1FC;

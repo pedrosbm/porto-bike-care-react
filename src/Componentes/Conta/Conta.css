@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Jost:wght@500&display=swap');
+
+.b1{
+    font-size: 40px;
+}
+.d1{
+    font-size: 40px;
+}
+.accountData{
+    font-size: 20px;
+}
+
+.info span{
+    position: relative;
+    left: 20px;
+}
+
+.welcome    {
+    width: 40rem;
+    margin-right: 50px;
+}
+
+.welcome img   {
+    height: min-content;
+}
+
+.info   {
+    display: flex;
+    flex-direction: column;
+}
+
+.info div{
+    transition: 0.2s;
+    border: none;
+    background-color: #EDEDED;
+    width: 28rem;
+    height: 2rem;
+    padding-inline: 20px;
+    border-radius: 10rem;
+}
+
+.g2{
+    margin-top: 10px;
+    margin-left: -40px;
+}
+
+.logout{
+    margin-left: 35rem;
+    width: 100px;
+    height: 40px;
+    background-color:#ff1500 ;
+    border-color: #ff1500; 
+    color: #EDEDED;
+    border-radius: 50px;
+}
+
+.account div:nth-child(1){
+    display: flex;
+}

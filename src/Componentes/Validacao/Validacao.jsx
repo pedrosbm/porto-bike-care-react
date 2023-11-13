@@ -1,137 +1,124 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import './Validacao.css'
 
 function Validacao() {
   const navigate = useNavigate();
-
+  const limiarAceitavel = 0.5;
   const [novo, setNovo] = useState({
-    fotoSerie: null,
     foto1: null,
     foto2: null,
-    foto3: null,
-    foto4: null,
-    foto5: null,
-    foto6: null,
-    foto7: null,
-    foto8: null,
-    foto9: null
+    foto3: null
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const handleCameraCapture = async (photoName) => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const mediaStreamTrack = mediaStream.getVideoTracks()[0];
+      const imageCapture = new ImageCapture(mediaStreamTrack);
 
-  const handleChange = (e) => {
-    setNovo({ ...novo, [e.target.name]: e.target.files[0] });
+      const photoBlob = await imageCapture.takePhoto();
+      setNovo({ ...novo, [photoName]: photoBlob });
+
+      mediaStreamTrack.stop();
+    } catch (error) {
+      console.error("Erro ao capturar a foto:", error);
+      alert("Erro ao capturar a foto. Verifique se a câmera está acessível.");
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("foto1", novo.foto1);
+    formData.append("foto2", novo.foto2);
+    formData.append("foto3", novo.foto3);
 
-    navigate("/Etapa4")
+    try {
+      const response = await fetch("http://127.0.0.1:5000/upload", {
+        method: "POST",
+        body: formData
+      });
 
-    // Código abaixo está funcional. Descomentar quando estiver com api em mãos.
-    // const formData = new FormData();
-    // formData.append("fotoSerie", novo.fotoSerie);
-    // formData.append("foto1", novo.foto1);
-    // formData.append("foto2", novo.foto2);
-    // formData.append("foto3", novo.foto3);
-    // formData.append("foto4", novo.foto4);
-    // formData.append("foto5", novo.foto5);
-    // formData.append("foto6", novo.foto6);
-    // formData.append("foto7", novo.foto7);
-    // formData.append("foto8", novo.foto8);
-    // formData.append("foto9", novo.foto9);
+      if (!response.ok) {
+        throw new Error(`Erro na requisição ${response.status}`);
+      }
 
-    // setLoading(true);
-    // setError(null);
+      const data = await response.json();
+      if (data.error) {
+        console.error(data.error);
+        alert("Erro ao processar as imagens. Por favor, tente novamente.");
+        return;
+      }
 
-    // fetch("http://127.0.0.1:5000/upload", {
-    //   method: "POST",
-    //   body: formData,
-    //   mode: 'cors'
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error(`Erro na requisição: ${response.status}`);
-    //     } return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
+      if (data.class_name === "Classe não aceitável") {
+        console.log("Uma das fotos não é aceitável.");
+        alert("Uma das fotos não é aceitável. Por favor, tire outra foto.");
+        return;
+      }
 
-    //     navigate("/Finalizacao");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Erro ao processar a requisição:", error);
-    //     setError("Erro ao enviar as imagens. Tente novamente mais tarde.");
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
+      if (!data.class_name || !["Bicicross", "Downhill", "Gravel", "Speed"].includes(data.class_name)) {
+        console.log("A imagem não é uma bicicleta.");
+        alert("A imagem não é uma bicicleta.");
+        return;
+      }
+
+      navigate("/Finalizacao");
+
+    } catch (error) {
+      console.error("Erro ao enviar as imagens:", error);
+      alert("Erro ao enviar as imagens. Por favor, tente novamente.");
+    }
   };
 
   return (
-    <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <section>
-            <h2>Envie imagens da bike</h2>
-            <fieldset>
-              <div className="inputBox">
-                <label htmlFor="fotoSerie">Envie uma foto mostrando o número de série da bike: </label>
-                <input type="file" name="fotoSerie" onChange={handleChange} />
-              </div>
+    <div className="wrapper">
+      <form onSubmit={handleSubmit}>
+        <h2>Tire fotos da bike</h2>
+        <section>
+          <fieldset className="validacao">
+            <div className="box">
+              <button
+                type="button"
+                onClick={() => handleCameraCapture("foto1")}
+                className="CameraButton"
+              >
+                Tirar foto da lateral esquerda da bike
+              </button>
+            </div>
+            <div className="box">
+              <button
+                type="button"
+                onClick={() => handleCameraCapture("foto2")}
+                className="CameraButton"
+              >
+                Tirar foto da lateral direita da bike
+              </button>
+            </div>
 
-              <div className="inputBox">
-                <label htmlFor="foto1">Envie fotos da lateral esquerda da bike: </label>
-                <input type="file" name="foto1" onChange={handleChange} />
-              </div>
+            <div className="box">
+              <button
+                type="button"
+                onClick={() => handleCameraCapture("foto3")}
+                className="CameraButton"
+              >
+                Tirar foto da frente da bike
+              </button>
 
-              <div className="inputBox">
-                <label htmlFor="foto2">Envie fotos da lateral direita da bike: </label>
-                <input type="file" name="foto2" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto3">Envie fotos do quadro da bike: </label>
-                <input type="file" name="foto3" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto4">Envie fotos do freio da bike: </label>
-                <input type="file" name="foto4" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto5">Envie fotos do guidão da bike: </label>
-                <input type="file" name="foto5" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto6">Envie fotos da marcha da bike: </label>
-                <input type="file" name="foto6" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto7">Envie fotos da pneu da bike: </label>
-                <input type="file" name="foto7" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto8">Envie fotos do aro da bike: </label>
-                <input type="file" name="foto8" onChange={handleChange} />
-              </div>
-
-              <div className="inputBox">
-                <label htmlFor="foto9">Envie fotos do banco da bike: </label>
-                <input type="file" name="foto9" onChange={handleChange} />
-              </div>
-            </fieldset>
-          </section>
-
-          <button type="submit" className="Button">Confirmar</button>
-        </form>
-      </div>
-    </>
-  )
+              <p>Para reenviar imagens apenas clique novamente no botão</p>
+            </div>
+          </fieldset>
+        
+          <Link to='/Etapa4'>
+            burlar
+          </Link>
+          <button type="submit" className="Button">
+            Confirmar
+          </button>
+        </section>
+      </form>
+    </div>
+  );
 }
+
 export default Validacao;

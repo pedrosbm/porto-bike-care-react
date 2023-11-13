@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import './FormsBike.css'
 
 const schema = yup.object({
     nick: yup.string().required("Campo obrigatório"),
