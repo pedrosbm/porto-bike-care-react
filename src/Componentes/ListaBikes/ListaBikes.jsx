@@ -20,6 +20,7 @@ function ListaBikes() {
     const handleDelete = (id) => {
         fetch(`http://localhost:8080/Bike/delete/${id}`)
             .then((resp) => {
+                alert("Bike apagada! reinicie a página para atualizar")
                 return resp.json();
             }).then((data) => {
                 console.log(data)

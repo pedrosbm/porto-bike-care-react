@@ -12,6 +12,9 @@ function Account() {
       .then((resp) => {
         return resp.json();
       }).then((data) => {
+        localStorage.setItem("nome", data["nome"])
+        localStorage.setItem("cep", data["cep"])
+        localStorage.setItem("email", data["email"])
         setCliente(data)
       }).catch((error) => {
         console.log(error);
@@ -28,7 +31,7 @@ function Account() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(bike),
+      body: JSON.stringify(cliente),
     })
       .then(response => {
         if (response.ok) {
@@ -81,16 +84,16 @@ function Account() {
                   <div>
                     <label htmlFor="nome" id="nome" className="name">Nome completo:</label>
                   </div>
-                  <input type="text" placeholder="Digite o primeiro nome" minLength={1} value={cliente.nome}
+                  <input name="nome" type="text" placeholder="Digite o primeiro nome" minLength={1} value={cliente.nome}
                     onChange={handleChange}
                   />
                 </div>
 
                 <div className="inputBox input2">
                   <div>
-                    <label htmlFor="email" className="e-mail" id="e-mail">E-mail:</label>
+                    <label htmlFor="email" className="e-mail" id="email">E-mail:</label>
                   </div>
-                  <input type="email" placeholder="Example@example.com.br" minLength={1} value={cliente.email}
+                  <input name="email" type="email" placeholder="Example@example.com.br" minLength={1} value={cliente.email}
                     onChange={handleChange}
                   />
                 </div>
@@ -99,7 +102,7 @@ function Account() {
                   <div>
                     <label htmlFor="cep" className="cep" id="cep">CEP:</label>
                   </div>
-                  <input type="number" minLength={8} maxLength={10} placeholder="Apenas números" value={cliente.cep}
+                  <input name="cep" type="number" minLength={8} maxLength={10} placeholder="Apenas números" value={cliente.cep}
                     onChange={handleChange}
                   />
                 </div>
