@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import NavbarP from '../NavBarS/NavBarS'
 import Footer from '../Rodape/Rodape'
 
-export default function () {
+export default function EditBike () {
 
     const navigate = useNavigate();
 

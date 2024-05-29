@@ -4,7 +4,7 @@ import Rodape from '../Componentes/Rodape/Rodape';
 import NavBarS from '../Componentes/NavBarS/NavBarS';
 
 
-function pagPagamento() {
+function PagamentoPage() {
 
     return (
       <div className="pagPagamento">
@@ -16,4 +16,4 @@ function pagPagamento() {
     );
   }
   
-  export default pagPagamento;
+  export default PagamentoPage;
