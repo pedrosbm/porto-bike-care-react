@@ -1,6 +1,6 @@
 import './Banner.css';
 import imgBike from "../../imgs/imgBike.png";
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Banner() {
 

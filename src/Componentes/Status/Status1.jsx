@@ -1,5 +1,4 @@
 import './Status1.css'
-import bike from '../../imgs/bike.png'
 
 function Status1() {
 

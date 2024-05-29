@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import NavbarP from '../NavBarS/NavBarS'
 import Footer from '../Rodape/Rodape'
-import e from "cors";
 
 export default function EditCard() {
 
